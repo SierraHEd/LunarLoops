@@ -6,6 +6,8 @@ sealed class UIEvent{
     data class LastNameChanged(val lastName: String) : UIEvent()
     data class EmailChanged(val email:String) : UIEvent()
     data class PasswordChanged(val password:String) : UIEvent()
+    data class ChildNameChanged(val childname:String) : UIEvent()
+    data class AgeChanged(val age: String) : UIEvent()
 
     object RegisterButtonClicked : UIEvent()
 }

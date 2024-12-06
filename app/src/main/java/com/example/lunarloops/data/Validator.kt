@@ -32,6 +32,23 @@ object Validator {
             (!password.isNullOrEmpty() && password.length>=4)
         )
     }
+
+    fun validateAge(age: String): ValidationResult{
+        return ValidationResult(
+            try {
+                val num = age.toInt()
+                num in 0..100
+            } catch (e: NumberFormatException) {
+                false
+            }
+        )
+    }
+
+    fun validateChildName(cName:String): ValidationResult{
+        return ValidationResult(
+            (!cName.isNullOrEmpty() && cName.length>=3 && cName.length<=30)
+        )
+    }
 }
 
 data class ValidationResult(

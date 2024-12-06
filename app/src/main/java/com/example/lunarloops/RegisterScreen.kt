@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Surface
@@ -94,6 +95,24 @@ fun RegisterScreen(registerViewModel: RegisterViewModel = viewModel(), navContro
                     registerViewModel.onEvent(UIEvent.PasswordChanged(it), navController)
                 },
                 registerViewModel.registrationUIState.value.passwordError
+            )
+
+            MyTextField(
+                labelValue = "Child Name",
+                painterIcon = rememberVectorPainter(Icons.Default.AccountCircle),
+                onTextSelected = {
+                    registerViewModel.onEvent(UIEvent.ChildNameChanged(it), navController)
+                },
+                registerViewModel.registrationUIState.value.cnameError
+            )
+
+            MyTextField(
+                labelValue = "Child Age",
+                painterIcon = rememberVectorPainter(Icons.Default.DateRange),
+                onTextSelected = {
+                    registerViewModel.onEvent(UIEvent.ChildNameChanged(it), navController)
+                },
+                registerViewModel.registrationUIState.value.ageError
             )
 
             Spacer(modifier = Modifier.height(40.dp))

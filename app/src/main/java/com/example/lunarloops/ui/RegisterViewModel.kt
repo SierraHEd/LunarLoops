@@ -37,6 +37,13 @@ class RegisterViewModel : ViewModel(){
                 registrationUIState.value = registrationUIState.value.copy(password = event.password)
                 printState()
             }
+            is UIEvent.ChildNameChanged -> {
+                registrationUIState.value = registrationUIState.value.copy(cname = event.childname)
+                printState()
+            }
+            is UIEvent.AgeChanged -> {
+                registrationUIState.value = registrationUIState.value.copy(age = event.age)
+            }
             is UIEvent.RegisterButtonClicked -> {
                 signUp(navController)
             }
@@ -71,6 +78,14 @@ class RegisterViewModel : ViewModel(){
             password = registrationUIState.value.password
         )
 
+        val cNameResult = Validator.validateChildName(
+            cName = registrationUIState.value.cname
+        )
+
+        val ageResult = Validator.validateAge(
+            age = registrationUIState.value.age
+        )
+
         Log.d(TAG, "Inside_validateDateWithRules")
         Log.d(TAG, "fNameResult= $fNameResult")
         Log.d(TAG, "lNameResult= $lNameResult")
@@ -85,7 +100,7 @@ class RegisterViewModel : ViewModel(){
             passwordError = passwordResult.status
         )
 
-        if(userNameResult.status && fNameResult.status && lNameResult.status && emailResult.status && passwordResult.status)
+        if(userNameResult.status && fNameResult.status && lNameResult.status && emailResult.status && passwordResult.status && cNameResult.status && ageResult.status)
             allValidationsPassed.value = true
         else
             allValidationsPassed.value = false

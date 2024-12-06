@@ -17,6 +17,7 @@ class AppStorage(private val context: Context) {
         private object PreferenceKeys {
             val USERNAME = stringPreferencesKey("username")
             val PASSWORD = stringPreferencesKey("password")
+            val CNAME = stringPreferencesKey("cname")
         }
     }
 
@@ -40,5 +41,9 @@ class AppStorage(private val context: Context) {
         }
     }
 
-    //Add suspend fun for any additional saved Data
+    suspend fun saveChildName(cName: String){
+        context.dataStore.edit { prefs ->
+            prefs[PreferenceKeys.CNAME] = cName
+        }
+    }
 }

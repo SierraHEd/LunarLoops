@@ -1,7 +1,6 @@
-package com.example.lunarloops.ui
+package com.example.lunarloops.Planet1
 
 import android.provider.ContactsContract.Data
-import android.widget.GridView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,26 +26,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.lunarloops.Planet1.DraggableView
-import com.example.lunarloops.Planet1.DropTarget
-import com.example.lunarloops.Planet1.GameScreen
 
 @Composable
-fun World1Level1(navController: NavController){
+fun World1Level2(navController: NavController){
     GameScreen {
-        World1Views(navController)
+        WorldL2Views(navController)
     }
 }
 
 @Composable
-fun World1Views(navController: NavController){
+fun WorldL2Views(navController: NavController){
 
     val screenWidth = LocalConfiguration.current.screenWidthDp
     val boxSize = Dp(screenWidth/6f)
@@ -65,16 +60,16 @@ fun World1Views(navController: NavController){
         )
 
         val gridData: Array<Array<DataItem>> = arrayOf(
-            arrayOf(DataItem("0"), DataItem("0"), DataItem("S","S"), DataItem("0")),
-            arrayOf(DataItem("0"), DataItem("0"), DataItem("T","T"), DataItem("0")),
-            arrayOf(DataItem("S", "S"), DataItem("P", "P"), DataItem("#", "A"), DataItem("C", "C"), DataItem("#","E")),
-            arrayOf(DataItem("0"), DataItem("0"), DataItem("R","R"), DataItem("0"), DataItem("A","")),
-            arrayOf(DataItem("0"), DataItem("0"), DataItem("0"), DataItem("0"), DataItem("R")),
-            arrayOf(DataItem("0"), DataItem("0"), DataItem("0"), DataItem("0"), DataItem("T")),
-            arrayOf(DataItem("0"), DataItem("0"), DataItem("0"), DataItem("0"), DataItem("H")),
+            arrayOf(DataItem("0"), DataItem("0"), DataItem("0"), DataItem("0"), DataItem("C", "C"), DataItem("0")),
+            arrayOf(DataItem("0"), DataItem("0"), DataItem("0"), DataItem("0"), DataItem("O", "O"), DataItem("0")),
+            arrayOf(DataItem("0"), DataItem("S", "S"), DataItem("0"), DataItem("0"), DataItem("M","M"), DataItem("0")),
+            arrayOf(DataItem("R", "R"), DataItem("#", "O"), DataItem("C", "C"), DataItem("K", "K"), DataItem("#","E"), DataItem("T", "")),
+            arrayOf(DataItem("0"), DataItem("L", "L"), DataItem("0"), DataItem("0"), DataItem("T","T"), DataItem("0")),
+            arrayOf(DataItem("0"), DataItem("A", "A"), DataItem("0"), DataItem("0"), DataItem("0"), DataItem("0")),
+            arrayOf(DataItem("0"), DataItem("R", "R"), DataItem("0"), DataItem("0"), DataItem("0"), DataItem("0")),
         )
 
-        GridView(gridData, boxSize, navController)
+        GridView2(gridData, boxSize, navController)
 
         val dragItems = listOf(
             DataItem("A"),
@@ -109,7 +104,7 @@ fun World1Views(navController: NavController){
 }
 
 @Composable
-fun GridView(data: Array<Array<DataItem>>, boxSize: Dp, navController: NavController){
+fun GridView2(data: Array<Array<DataItem>>, boxSize: Dp, navController: NavController){
     var dataList by remember { mutableStateOf(data) }
     var currentStep by remember { mutableStateOf(0) } // Tracks the current placeholder to fill
     val correctAnswers = listOf("A", "E")
@@ -133,14 +128,15 @@ fun GridView(data: Array<Array<DataItem>>, boxSize: Dp, navController: NavContro
                         "#" -> {
                             DropTarget <DataItem>(modifier = Modifier.size(boxSize)
                             ){
-                                isInBound, dataToDrop ->
+                                    isInBound, dataToDrop ->
 
                                 val color = if(isInBound) Color.Red.copy(0.5f)
                                 else Color.Gray.copy(0.2f)
 
                                 dataToDrop?.let {
                                     if(isInBound){
-                                        val result = findElementIndex(data, DataItem("#", dataToDrop.name))?:Pair(0,0)
+                                        val result = findElementIndex(data, DataItem("#", dataToDrop.name))
+                                            ?:Pair(0,0)
 
                                         if(result.first != 0 && result.second != 0){
                                             dataList = dataList.mapIndexed{ rowIndex, row ->
@@ -159,7 +155,7 @@ fun GridView(data: Array<Array<DataItem>>, boxSize: Dp, navController: NavContro
 
                                             // Navigate if all placeholders are filled
                                             if (currentStep == correctAnswers.size+1) {
-                                                navController.navigate("world1_level2_screen")
+                                                navController.navigate("world1_level3_screen")
                                             }
                                         }
                                     }
@@ -228,20 +224,3 @@ fun GridView(data: Array<Array<DataItem>>, boxSize: Dp, navController: NavContro
     }
 
 }
-
-fun <T> findElementIndex(matrix: Array<Array<T>>, target: T): Pair<Int, Int>?{
-    for(row in matrix.indices){
-        for(column in matrix[row].indices){
-            if(matrix[row][column] == target){
-                return Pair(row, column)
-            }
-        }
-    }
-    return null
-}
-
-data class DataItem(
-    val name: String? = "",
-    val id: String? = "",
-    val color: Color = Color.Gray
-)
