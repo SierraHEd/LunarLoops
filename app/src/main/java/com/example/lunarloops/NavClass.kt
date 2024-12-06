@@ -11,9 +11,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.lunarloops.planetDD.DDLevel1Screen
 import com.example.lunarloops.ui.LoginViewModel
 import com.example.lunarloops.ui.RegisterViewModel
+import com.example.lunarloops.ui.World1Level1
 
 @Composable
 fun Navigation(context: Context) {
@@ -21,7 +21,7 @@ fun Navigation(context: Context) {
     val loginViewModel: LoginViewModel = viewModel()
     val registerViewModel: RegisterViewModel = viewModel()
 
-    NavHost(navController = navController, startDestination = "drag_and_drop_level1") {
+    NavHost(navController = navController, startDestination = "world1_level1_screen") {
 
         composable("login_screen") {
             LoginScreen(loginViewModel, navController)
@@ -31,10 +31,9 @@ fun Navigation(context: Context) {
             RegisterScreen(registerViewModel, navController)
         }
 
-        composable("drag_and_drop_level1"){
-            DDLevel1Screen(navController)
+        composable("world1_level1_screen"){
+            World1Level1(navController)
         }
-
 
     }
 }
