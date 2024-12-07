@@ -24,13 +24,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.ImageShader
+import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.lunarloops.R
+import com.example.lunarloops.ui.theme.Space
 
 @Composable
 fun World1Level1(navController: NavController){
@@ -44,16 +50,18 @@ fun World1Views(navController: NavController){
 
     val screenWidth = LocalConfiguration.current.screenWidthDp
     val boxSize = Dp(screenWidth/6f)
+    val imageBrush =
+        ShaderBrush(ImageShader(ImageBitmap.imageResource(id = R.drawable.redbck)))
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(imageBrush),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Text(text = "Word Game",
             fontSize = 45.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.Magenta.copy(0.5f),
+            color = Color.White.copy(0.5f),
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 60.dp)
         )

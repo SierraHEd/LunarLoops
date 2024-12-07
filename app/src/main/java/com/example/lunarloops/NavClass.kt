@@ -11,6 +11,7 @@ import com.example.lunarloops.ui.RegisterViewModel
 import com.example.lunarloops.Planet1.World1Level1
 import com.example.lunarloops.Planet1.World1Level2
 import com.example.lunarloops.Planet1.World1Level3
+import com.example.lunarloops.Planet1.World1RulesScreen
 
 @Composable
 fun Navigation(context: Context) {
@@ -18,7 +19,7 @@ fun Navigation(context: Context) {
     val loginViewModel: LoginViewModel = viewModel()
     val registerViewModel: RegisterViewModel = viewModel()
 
-    NavHost(navController = navController, startDestination = "world1_level1_screen") {
+    NavHost(navController = navController, startDestination = "world1_rules_screen") {
 
         composable("login_screen") {
             LoginScreen(loginViewModel, navController)
@@ -38,6 +39,10 @@ fun Navigation(context: Context) {
 
         composable("world1_level3_screen"){
             World1Level3(navController)
+        }
+
+        composable("world1_rules_screen") {
+            World1RulesScreen(navController)
         }
 
     }
