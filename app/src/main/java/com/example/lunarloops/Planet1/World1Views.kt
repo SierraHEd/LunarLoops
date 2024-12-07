@@ -72,7 +72,7 @@ fun World1Views(navController: NavController){
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 60.dp)
         )
-
+//New Grid with New words
         val gridData: Array<Array<DataItem>> = arrayOf(
             arrayOf(DataItem("0"), DataItem("0"), DataItem("S","S"), DataItem("0")),
             arrayOf(DataItem("0"), DataItem("0"), DataItem("T","T"), DataItem("0")),
@@ -84,13 +84,13 @@ fun World1Views(navController: NavController){
         )
 
         GridView(gridData, boxSize, navController)
-
+//Possible Answers
         val dragItems = listOf(
             DataItem("A"),
             DataItem("O"),
             DataItem("E")
         )
-
+//Made possible answers green squares
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 60.dp),
@@ -143,6 +143,7 @@ fun GridView(data: Array<Array<DataItem>>, boxSize: Dp, navController: NavContro
             ) {
                 for(item in row){
                     when(item.name){
+                        //If possible answer is dragged into #
                         "#" -> {
                             DropTarget <DataItem>(modifier = Modifier.size(boxSize)
                             ){
@@ -199,7 +200,7 @@ fun GridView(data: Array<Array<DataItem>>, boxSize: Dp, navController: NavContro
                                 }
                             }
                         }
-
+                        //Handle Blank Spaces
                         "0" -> {
                             Box(modifier = Modifier.size(boxSize)){
 
@@ -207,6 +208,7 @@ fun GridView(data: Array<Array<DataItem>>, boxSize: Dp, navController: NavContro
                         }
 
                         else -> {
+                            //Shaped non moving blocks
                             Box(modifier = Modifier
                                 .size(boxSize)
                                 .clip(RoundedCornerShape(15.dp))

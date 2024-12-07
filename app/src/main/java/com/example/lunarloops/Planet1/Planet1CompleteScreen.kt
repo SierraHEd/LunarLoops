@@ -77,6 +77,7 @@ fun World1CompleteScreen(navController: NavController){
             modifier = Modifier.padding(bottom = 60.dp)
         )
 
+        //Return Button
         Button(
             onClick = {navController.navigate("home_screen")},
             modifier = Modifier
@@ -114,6 +115,7 @@ fun World1CompleteScreen(navController: NavController){
             modifier = Modifier.padding(bottom = 60.dp)
         )
 
+    //Retry Button
         Button(
             onClick = {navController.navigate("world1_level1_screen")},
             modifier = Modifier

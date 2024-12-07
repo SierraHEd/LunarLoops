@@ -70,6 +70,7 @@ fun World2CompleteScreen(navController: NavController){
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        //Return Button and Label
         Text(text = "Ready To Go Back?",
             fontSize = 45.sp,
             fontWeight = FontWeight.Bold,
@@ -107,6 +108,7 @@ fun World2CompleteScreen(navController: NavController){
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        //Retry Button and Label
         Text(text = "Want to try again?",
             fontSize = 45.sp,
             fontWeight = FontWeight.Bold,

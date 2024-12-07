@@ -68,6 +68,8 @@ fun World2L1Screen(navController: NavController){
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
+
+            // User Clicks on Correct Images
             Box() {
                 Image(painter = painterResource(id = R.drawable.star), contentDescription = null,
                     modifier = Modifier
@@ -87,6 +89,7 @@ fun World2L1Screen(navController: NavController){
                         })
             }
         }
+        //Split into 2 Rows
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),

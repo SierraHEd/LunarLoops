@@ -74,7 +74,7 @@ fun HomeScreen(navController: NavController){
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-
+    // User Chooses either red or blue planet
             Box() {
                 Image(painter = painterResource(id = R.drawable.redplanet), contentDescription = null,
                     modifier = Modifier

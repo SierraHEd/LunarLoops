@@ -80,7 +80,7 @@ fun World1RulesScreen(navController: NavController){
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 60.dp)
         )
-
+        //Start Button
         Button(
             onClick = {navController.navigate("world1_level1_screen")},
             modifier = Modifier

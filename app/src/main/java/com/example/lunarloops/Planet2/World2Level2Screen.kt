@@ -65,6 +65,7 @@ fun World2L2Screen(navController: NavController){
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
+            //User Clicks on Correct Image
             Box() {
                 Image(painter = painterResource(id = R.drawable.earth), contentDescription = null,
                     modifier = Modifier
@@ -79,6 +80,7 @@ fun World2L2Screen(navController: NavController){
                         .clickable { navController.navigate("world2_level3_screen") })
             }
         }
+        //Split Into 2 Rows
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
