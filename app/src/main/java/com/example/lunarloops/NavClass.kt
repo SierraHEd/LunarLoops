@@ -64,15 +64,15 @@ fun Navigation(context: Context) {
         //Planet 2
 
         composable("world2_level1_screen"){
-            World2L1Screen(navController)
+            World2L1Screen(context, navController)
         }
 
         composable("world2_level2_screen"){
-            World2L2Screen(navController)
+            World2L2Screen(context, navController)
         }
 
         composable("world2_level3_screen"){
-            World2L3Screen(navController)
+            World2L3Screen(context, navController)
         }
 
         composable("world2_rules_screen") {

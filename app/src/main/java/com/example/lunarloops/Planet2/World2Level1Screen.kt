@@ -1,5 +1,7 @@
 package com.example.lunarloops.Planet2
 
+import android.content.Context
+import android.media.MediaPlayer
 import android.media.browse.MediaBrowser
 import android.widget.ImageButton
 import androidx.compose.foundation.Image
@@ -31,7 +33,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.NavController
 import com.example.lunarloops.R
 import com.example.lunarloops.data.AppStorage
@@ -39,13 +40,14 @@ import com.example.lunarloops.ui.AppPreferences
 import kotlinx.coroutines.launch
 
 @Composable
-fun World2L1Screen(navController: NavController){
+fun World2L1Screen(context: Context, navController: NavController){
     val store = AppStorage(LocalContext.current)
     val appPrefs = store.appPreferencesFlow.collectAsState(AppPreferences())
     val coroutineScope = rememberCoroutineScope()
     val imageBrush =
         ShaderBrush(ImageShader(ImageBitmap.imageResource(id = R.drawable.bbck)))
     val correct = 10
+    val mediaPlayer: MediaPlayer = MediaPlayer.create(context, R.raw.ding)
 
     Column(modifier = Modifier
         .fillMaxSize()
@@ -74,7 +76,11 @@ fun World2L1Screen(navController: NavController){
                 Image(painter = painterResource(id = R.drawable.star), contentDescription = null,
                     modifier = Modifier
                         .size(180.dp)
-                        .clickable { navController.navigate("world2_level2_screen") })
+                        .clickable {
+                            mediaPlayer.start()
+                            navController.navigate("world2_level2_screen")
+
+                        })
             }
 
             Box() {
@@ -85,6 +91,7 @@ fun World2L1Screen(navController: NavController){
                             coroutineScope.launch {
                                 store.saveWorld2Score(appPrefs.value.world2score + correct)
                             }
+                            mediaPlayer.start()
                             navController.navigate("world2_level2_screen")
                         })
             }
@@ -100,14 +107,21 @@ fun World2L1Screen(navController: NavController){
                 Image(painter = painterResource(id = R.drawable.moon), contentDescription = null,
                     modifier = Modifier
                         .size(180.dp)
-                        .clickable { navController.navigate("world2_level2_screen")})
+                        .clickable {
+                            mediaPlayer.start()
+                            navController.navigate("world2_level2_screen")
+
+                        })
             }
 
             Box() {
                 Image(painter = painterResource(id = R.drawable.mars), contentDescription = null,
                     modifier = Modifier
                         .size(180.dp)
-                        .clickable { navController.navigate("world2_level2_screen")})
+                        .clickable {
+                            mediaPlayer.start()
+                            navController.navigate("world2_level2_screen")
+                        })
             }
         }
     }

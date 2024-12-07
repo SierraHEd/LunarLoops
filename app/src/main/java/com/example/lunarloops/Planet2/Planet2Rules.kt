@@ -48,7 +48,7 @@ fun World2RulesScreen(navController: NavController){
             fontWeight = FontWeight.Bold,
             color = Color.White,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 40.dp)
+            modifier = Modifier.padding(40.dp)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -58,7 +58,7 @@ fun World2RulesScreen(navController: NavController){
             fontWeight = FontWeight.Bold,
             color = Color.White,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 40.dp)
+            modifier = Modifier.padding(40.dp)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -68,7 +68,7 @@ fun World2RulesScreen(navController: NavController){
             fontWeight = FontWeight.Bold,
             color = Color.White,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 60.dp)
+            modifier = Modifier.padding(60.dp)
         )
 
         Button(
