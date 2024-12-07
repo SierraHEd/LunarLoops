@@ -18,8 +18,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.ImageShader
+import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -28,12 +32,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.lunarloops.data.AppStorage
 import com.example.lunarloops.data.ButtonComponent
+import com.example.lunarloops.data.HeadingTextComponent
 import com.example.lunarloops.data.LoginComponent
 import com.example.lunarloops.data.MyTextField
 import com.example.lunarloops.data.NormalTextComponent
 import com.example.lunarloops.data.PasswordTextField
 import com.example.lunarloops.data.UIEvent
 import com.example.lunarloops.ui.RegisterViewModel
+import com.example.lunarloops.ui.theme.Space
 import kotlinx.coroutines.launch
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -42,15 +48,18 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 fun RegisterScreen(registerViewModel: RegisterViewModel = viewModel(), navController: NavController) {
     val store = AppStorage(LocalContext.current)
     val coroutineScope = rememberCoroutineScope()
+    val imageBrush =
+        ShaderBrush(ImageShader(ImageBitmap.imageResource(id = R.drawable.starcbck)))
 
     Surface(
-        color = Color.Blue,
+        color = Space,
         modifier = Modifier.fillMaxSize()
-            .background(Color.Blue)
+            .background(imageBrush)
             .padding(28.dp)
     ) {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize().background(imageBrush)) {
             //ImageComponent()
+            HeadingTextComponent("Sign Up")
             Spacer(modifier = Modifier.height(20.dp))
 
             MyTextField(
@@ -123,8 +132,9 @@ fun RegisterScreen(registerViewModel: RegisterViewModel = viewModel(), navContro
                     coroutineScope.launch {
                         store.saveUsername(registerViewModel.registrationUIState.value.username)
                         store.savePassword(registerViewModel.registrationUIState.value.password)
+                        store.saveChildName(registerViewModel.registrationUIState.value.cname)
                     }
-                    navController.navigate("login_screen")
+                    navController.navigate("home_screen")
                 },
                 isEnabled = registerViewModel.allValidationsPassed.value
             )

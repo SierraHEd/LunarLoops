@@ -16,9 +16,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +30,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.ImageShader
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,7 +39,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.lunarloops.R
+import com.example.lunarloops.data.AppStorage
+import com.example.lunarloops.ui.AppPreferences
 import com.example.lunarloops.ui.theme.Space
+import kotlinx.coroutines.launch
 
 @Composable
 fun World1Level1(navController: NavController){
@@ -51,7 +57,8 @@ fun World1Views(navController: NavController){
     val screenWidth = LocalConfiguration.current.screenWidthDp
     val boxSize = Dp(screenWidth/6f)
     val imageBrush =
-        ShaderBrush(ImageShader(ImageBitmap.imageResource(id = R.drawable.redbck)))
+        ShaderBrush(ImageShader(ImageBitmap.imageResource(id = R.drawable.spcbck)))
+
 
     Column(
         modifier = Modifier.fillMaxSize().background(imageBrush),
@@ -116,6 +123,10 @@ fun GridView(data: Array<Array<DataItem>>, boxSize: Dp, navController: NavContro
     var currentStep by remember { mutableStateOf(0) } // Tracks the current placeholder to fill
     val correctAnswers = listOf("A", "E")
     val initialGridData = data.map { row -> row.map { it.copy() }.toTypedArray() }.toTypedArray()
+    val store = AppStorage(LocalContext.current)
+    val appPrefs = store.appPreferencesFlow.collectAsState(AppPreferences())
+    val coroutineScope = rememberCoroutineScope()
+    val correct = 20
 
     Column(modifier = Modifier
         .fillMaxWidth()
@@ -162,6 +173,9 @@ fun GridView(data: Array<Array<DataItem>>, boxSize: Dp, navController: NavContro
 
                                             // Navigate if all placeholders are filled
                                             if (currentStep == correctAnswers.size+1) {
+                                                coroutineScope.launch {
+                                                    store.saveWorld1Score(appPrefs.value.world1score + correct)
+                                                }
                                                 navController.navigate("world1_level2_screen")
                                             }
                                         }

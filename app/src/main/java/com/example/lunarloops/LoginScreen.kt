@@ -13,14 +13,19 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.ImageShader
+import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.lunarloops.data.AppStorage
 import com.example.lunarloops.data.ButtonComponent
+import com.example.lunarloops.data.HeadingTextComponent
 import com.example.lunarloops.data.LoginUIEvent
 import com.example.lunarloops.data.MyTextField
 import com.example.lunarloops.data.NormalTextComponent
@@ -28,20 +33,26 @@ import com.example.lunarloops.data.PasswordTextField
 import com.example.lunarloops.data.RegisterComponent
 import com.example.lunarloops.ui.AppPreferences
 import com.example.lunarloops.ui.LoginViewModel
+import com.example.lunarloops.ui.theme.Space
 
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel = viewModel(), navController: NavController){
     val store = AppStorage(LocalContext.current)
     val appPrefs = store.appPreferencesFlow.collectAsStateWithLifecycle(AppPreferences())
+    val imageBrush =
+        ShaderBrush(ImageShader(ImageBitmap.imageResource(id = R.drawable.starcbck)))
 
     Surface(
-        color = Color.Blue,
-        modifier = Modifier.fillMaxSize()
-            .background(Color.Blue)
+        color = Space,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(imageBrush)
             .padding(28.dp)
     ){
-        Column {
+        Column(modifier = Modifier.fillMaxSize().background(imageBrush)) {
             //ImageComponent()
+            HeadingTextComponent("Login")
+
             Spacer(modifier = Modifier.height(20.dp))
 
             MyTextField(

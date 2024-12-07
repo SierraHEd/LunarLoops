@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.lunarloops.ui.AppPreferences
@@ -18,6 +19,8 @@ class AppStorage(private val context: Context) {
             val USERNAME = stringPreferencesKey("username")
             val PASSWORD = stringPreferencesKey("password")
             val CNAME = stringPreferencesKey("cname")
+            val World1_SCORE = intPreferencesKey("world2_score")
+            val World2_SCORE = intPreferencesKey("world2_score")
         }
     }
 
@@ -25,8 +28,11 @@ class AppStorage(private val context: Context) {
         context.dataStore.data.map {prefs ->
             val email = prefs[PreferenceKeys.USERNAME] ?: ""
             val password = prefs[PreferenceKeys.PASSWORD] ?: ""
+            val cname = prefs[PreferenceKeys.CNAME] ?: ""
+            val world1Score = prefs[PreferenceKeys.World2_SCORE] ?: 0
+            val world2Score = prefs[PreferenceKeys.World2_SCORE] ?: 0
 
-            AppPreferences(email, password)
+            AppPreferences(email, password, cname, world2Score)
         }
 
     suspend fun saveUsername(username: String){
@@ -44,6 +50,18 @@ class AppStorage(private val context: Context) {
     suspend fun saveChildName(cName: String){
         context.dataStore.edit { prefs ->
             prefs[PreferenceKeys.CNAME] = cName
+        }
+    }
+
+    suspend fun saveWorld1Score(world1score: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[PreferenceKeys.World2_SCORE] = world1score
+        }
+    }
+
+    suspend fun saveWorld2Score(world2score: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[PreferenceKeys.World2_SCORE] = world2score
         }
     }
 }

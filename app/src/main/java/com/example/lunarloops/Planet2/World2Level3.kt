@@ -1,6 +1,5 @@
 package com.example.lunarloops.Planet2
 
-import android.media.browse.MediaBrowser
 import android.widget.ImageButton
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,7 +29,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.NavController
 import com.example.lunarloops.R
 import com.example.lunarloops.data.AppStorage
@@ -39,12 +36,12 @@ import com.example.lunarloops.ui.AppPreferences
 import kotlinx.coroutines.launch
 
 @Composable
-fun World2L1Screen(navController: NavController){
+fun World2L3Screen(navController: NavController){
     val store = AppStorage(LocalContext.current)
     val appPrefs = store.appPreferencesFlow.collectAsState(AppPreferences())
     val coroutineScope = rememberCoroutineScope()
     val imageBrush =
-        ShaderBrush(ImageShader(ImageBitmap.imageResource(id = R.drawable.bbck)))
+        ShaderBrush(ImageShader(ImageBitmap.imageResource(id = R.drawable.bbck3)))
     val correct = 10
 
     Column(modifier = Modifier
@@ -54,7 +51,7 @@ fun World2L1Screen(navController: NavController){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Which Is The Sun?",
+        Text(text = "Which Is Neptune?",
             fontSize = 45.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White.copy(0.5f),
@@ -68,43 +65,45 @@ fun World2L1Screen(navController: NavController){
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Box() {
-                Image(painter = painterResource(id = R.drawable.star), contentDescription = null,
-                    modifier = Modifier
-                        .size(180.dp)
-                        .clickable { navController.navigate("world2_level2_screen") })
-            }
 
             Box() {
-                Image(painter = painterResource(id = R.drawable.sun), contentDescription = null,
+                Image(painter = painterResource(id = R.drawable.neptune), contentDescription = null,
                     modifier = Modifier
                         .size(180.dp)
                         .clickable {
                             coroutineScope.launch {
                                 store.saveWorld2Score(appPrefs.value.world2score + correct)
                             }
-                            navController.navigate("world2_level2_screen")
+                            navController.navigate("world2_complete_screen")
                         })
+            }
+
+            Box() {
+                Image(painter = painterResource(id = R.drawable.uranus), contentDescription = null,
+                    modifier = Modifier
+                        .size(180.dp)
+                        .clickable { navController.navigate("world2_complete_screen") })
             }
         }
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceEvenly
         ) {
+
             Box() {
-                Image(painter = painterResource(id = R.drawable.moon), contentDescription = null,
+                Image(painter = painterResource(id = R.drawable.star), contentDescription = null,
                     modifier = Modifier
                         .size(180.dp)
-                        .clickable { navController.navigate("world2_level2_screen")})
+                        .clickable { navController.navigate("world2_complete_screen")})
             }
 
             Box() {
                 Image(painter = painterResource(id = R.drawable.mars), contentDescription = null,
                     modifier = Modifier
                         .size(180.dp)
-                        .clickable { navController.navigate("world2_level2_screen")})
+                        .clickable { navController.navigate("world2_complete_screen") })
             }
         }
     }
